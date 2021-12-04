@@ -12,13 +12,16 @@ import { CreateTraduction } from "./creation/createTraduction";
 import { Dashbord } from "./dashboard";
 import { DisplayTraduction } from "./listing/displayTraduction";
 import { ListingTraduction } from "./listing/listingTraduction";
-import { UserContext } from "./userContext";
 
 const location = new ReactLocation();
 
-export const Routing = ({ children, isAdmin, setAdmin }) => {
-  const { user } = React.useContext(UserContext);
+interface RoutingProps {
+  isAdmin: boolean;
+  setAdmin: (isAdmin: boolean) => void;
+  children: React.ReactNode;
+}
 
+export const Routing = ({ children, isAdmin, setAdmin }: RoutingProps) => {
   const routes = [
     { path: "/", element: <ListingTraduction /> },
     {
