@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-location";
 
 export class Login extends Component {
   constructor(props) {
@@ -10,7 +9,7 @@ export class Login extends Component {
       error: "",
       info: "",
       isAdmin: this.props.isAdmin,
-      redirect: false
+      redirect: false,
     };
   }
 
@@ -20,14 +19,14 @@ export class Login extends Component {
       Meteor.call("user.isUser", Meteor.userId(), (err, res) => {
         if (res) {
           self.setState({
-            info: "Vous êtes déjà connecté"
+            info: "Vous êtes déjà connecté",
           });
         }
       });
     }
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     let email = document.getElementById("login-email").value;
@@ -40,7 +39,7 @@ export class Login extends Component {
             "Vous devez vérifier votre email avant de vous connecter";
           Bert.alert(message, "danger", "growl-top-right");
           this.setState({
-            redirect: "/Signup-success/" + err.details
+            redirect: "/Signup-success/" + err.details,
           });
         } else {
           Bert.alert(err.reason, "danger", "growl-top-right");
@@ -70,7 +69,7 @@ export class Login extends Component {
     const info = this.state.info;
 
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+      return <Navigate to={this.state.redirect} />;
     }
 
     return (

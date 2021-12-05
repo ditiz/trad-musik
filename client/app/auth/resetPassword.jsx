@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-location";
 
 export class ResetPassword extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      redirect: false
+      redirect: false,
     };
 
     this.passwordRef = React.createRef();
     this.passwordComfimRef = React.createRef();
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     let password = this.passwordRef.current.value;
@@ -43,7 +43,7 @@ export class ResetPassword extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+      return <Navigate to={this.state.redirect} />;
     }
 
     return (

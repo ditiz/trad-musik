@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { IsNotChrome } from "./IsNotChrome";
+import { Navigate } from "react-location";
 import { IsLoggin } from "../auth/isLoggin";
-import { Redirect } from "react-router-dom";
+import { IsNotChrome } from "./IsNotChrome";
 
 export class CreateTraduction extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ export class CreateTraduction extends Component {
       displayTraduction: "",
       action: "create",
       user: "",
-      redirect: ""
+      redirect: "",
     };
 
     this.changeTitle = this.changeTitle.bind(this);
@@ -36,12 +36,12 @@ export class CreateTraduction extends Component {
         "traduction.getOne",
         this.props.match.params.traduction,
         { user: Meteor.userId(), action: "edit" },
-        function(err, res) {
+        function (err, res) {
           if (err || !res) {
             Bert.alert("La traduction n'a pas pu être récupéré", "danger");
           } else {
             let arrayOrigin = res.origin.split("\n");
-            arrayOrigin = arrayOrigin.filter(text => text != "");
+            arrayOrigin = arrayOrigin.filter((text) => text != "");
             let origin = arrayOrigin.map((text, index) => (
               <div
                 onMouseOver={this.hoverOrigin}
@@ -55,7 +55,7 @@ export class CreateTraduction extends Component {
             ));
 
             let arrayTraduction = res.traduction.split("\n");
-            arrayTraduction = arrayTraduction.filter(text => text != "");
+            arrayTraduction = arrayTraduction.filter((text) => text != "");
             let traduction = arrayTraduction.map((text, index) => (
               <div
                 onMouseOver={this.hoverTraduction}
@@ -79,7 +79,7 @@ export class CreateTraduction extends Component {
               displayTraduction: traduction,
               origin: res.origin,
               traduction: res.traduction,
-              action: "update"
+              action: "update",
             });
           }
         }.bind(this)
@@ -90,10 +90,10 @@ export class CreateTraduction extends Component {
   componentDidMount() {
     console.clear();
     //Undisplay error
-    console.error = (function() {
+    console.error = (function () {
       var error = console.error;
 
-      return function(exception) {
+      return function (exception) {
         if (
           (exception + "").indexOf(
             "Warning: A component is `contentEditable`"
@@ -119,7 +119,7 @@ export class CreateTraduction extends Component {
       this.setState(
         {
           origin: origin,
-          traduction: traduction
+          traduction: traduction,
         },
         () => this.saveData()
       );
@@ -133,7 +133,7 @@ export class CreateTraduction extends Component {
       case "create":
         this.state.user = Meteor.userId();
 
-        Meteor.call("traduction.insertNew", this.state, function(err, result) {
+        Meteor.call("traduction.insertNew", this.state, function (err, result) {
           if (err) {
             Bert.alert(err.reason, "danger", "growl-top-right");
           } else if (result.status == "created") {
@@ -161,7 +161,7 @@ export class CreateTraduction extends Component {
           traduction: this.state.traduction,
           user_id: this.state.user,
           link: this.state.link,
-          videoLink: this.state.videoLink
+          videoLink: this.state.videoLink,
         };
 
         Meteor.call("traduction.updateOne", traduction, (err, result) => {
@@ -174,7 +174,7 @@ export class CreateTraduction extends Component {
               "growl-top-right"
             );
             this.setState({
-              redirect: "/Show/" + this.state._id
+              redirect: "/Show/" + this.state._id,
             });
           }
         });
@@ -224,7 +224,7 @@ export class CreateTraduction extends Component {
     //Remove css
     let divNode = document.getElementById(side);
 
-    divNode.childNodes.forEach(element => {
+    divNode.childNodes.forEach((element) => {
       if (element) {
         if (element.style === undefined) {
           let newDiv = document.createElement("div");
@@ -272,7 +272,7 @@ export class CreateTraduction extends Component {
       //Remove css
       divNode = document.getElementById(other);
 
-      divNode.childNodes.forEach(function(element) {
+      divNode.childNodes.forEach(function (element) {
         if (element) {
           if (element.style === undefined) {
             let newDiv = document.createElement("div");
@@ -302,7 +302,7 @@ export class CreateTraduction extends Component {
 
       ArrayContent = clipbordContent.split("\n");
 
-      ArrayContent.map(element => {
+      ArrayContent.map((element) => {
         let newDiv = document.createElement("div");
         let textDiv = document.createTextNode(element);
 
@@ -339,11 +339,11 @@ export class CreateTraduction extends Component {
     if (!!window.chrome && !!window.chrome.webstore) {
       var areaTexts = [
         document.getElementById("origin"),
-        document.getElementById("traduction")
+        document.getElementById("traduction"),
       ];
 
-      areaTexts.forEach(function(divNode) {
-        divNode.childNodes.forEach(function(element) {
+      areaTexts.forEach(function (divNode) {
+        divNode.childNodes.forEach(function (element) {
           if (element) {
             if (element.style === undefined) {
               let newDiv = document.createElement("div");
@@ -361,7 +361,7 @@ export class CreateTraduction extends Component {
 
   render() {
     if (this.state.redirect != "") {
-      <Redirect to={this.state.redirect} />;
+      <Navigate to={this.state.redirect} />;
     }
 
     return (
@@ -444,7 +444,7 @@ export class CreateTraduction extends Component {
                         contentEditable="true"
                         onKeyUp={() => this.useTextArea("origin", "traduction")}
                         onClick={() => this.useTextArea("origin", "traduction")}
-                        onPasteCapture={e =>
+                        onPasteCapture={(e) =>
                           this.pasteAction(e, "origin", "traduction")
                         }
                         onBlur={this.loseFocus}
@@ -464,7 +464,7 @@ export class CreateTraduction extends Component {
                         contentEditable="true"
                         onKeyUp={() => this.useTextArea("traduction", "origin")}
                         onClick={() => this.useTextArea("traduction", "origin")}
-                        onPaste={e =>
+                        onPaste={(e) =>
                           this.pasteAction(e, "traduction", "origin")
                         }
                         onBlur={this.loseFocus}

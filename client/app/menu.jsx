@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-
-import { Routing } from "./Routing";
-import { MenuItem } from "./menu-item";
-import { UserContext } from "./userContext";
 import { Outlet } from "react-location";
-
 import "./css/slider";
+import { MenuItem } from "./menu-item";
+import { Routing } from "./Routing";
+import { UserContext } from "./userContext";
 
 export class Menu extends Component {
   constructor(props) {
@@ -23,7 +21,8 @@ export class Menu extends Component {
   componentDidMount() {
     Meteor.call("user.isAdmin", Meteor.userId(), (err, res) => {
       if (err) {
-        alert("error");
+        alert("error isAdmin");
+        console.error(err);
       } else {
         this.setState({ isAdmin: res });
       }

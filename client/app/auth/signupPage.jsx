@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
-import { Redirect, Link } from "react-router-dom";
+import { Link, Navigate } from "react-location";
 
 export class Signup extends Component {
   constructor(props) {
@@ -9,11 +8,11 @@ export class Signup extends Component {
     this.state = {
       error: "",
       redirect: false,
-      userId: null
+      userId: null,
     };
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     let email = document.getElementById("login-email").value;
@@ -23,19 +22,19 @@ export class Signup extends Component {
     let newUser = {
       mail: email,
       username: username,
-      password: password
+      password: password,
     };
 
     Meteor.call("user.insertNew", newUser, (err, res) => {
       if (err) {
         this.setState({
-          error: err.reason
+          error: err.reason,
         });
       } else {
         this.setState({
           error: "",
           redirect: true,
-          userId: res
+          userId: res,
         });
       }
     });
@@ -45,7 +44,7 @@ export class Signup extends Component {
     const error = this.state.error;
 
     if (this.state.redirect) {
-      return <Redirect to={"Signup-success/" + this.state.userId} />;
+      return <Navigate to={"Signup-success/" + this.state.userId} />;
     }
 
     return (
