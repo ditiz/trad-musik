@@ -3,5 +3,27 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#087a43",
+    "activityBar.activeBorder": "#c187f7",
+    "activityBar.background": "#087a43",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#c187f7",
+    "activityBarBadge.foreground": "#15202b",
+    "sash.hoverBorder": "#087a43",
+    "statusBar.background": "#054a29",
+    "statusBar.border": "#054a29",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#087a43",
+    "statusBarItem.remoteBackground": "#054a29",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#054a29",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.border": "#054a29",
+    "titleBar.inactiveBackground": "#054a2999",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.remoteColor": "054a29"
 }
